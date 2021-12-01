@@ -22,6 +22,7 @@ public external object MDCTextFieldModule {
     public companion object {
       public fun attachTo(element: Element): MDCTextField
     }
+    public fun destroy()
 
     public fun destroy()
 
