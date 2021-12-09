@@ -11,11 +11,10 @@ import dev.petuska.kmdc.core.mdc
 import dev.petuska.kmdc.form.field.MDCFormFieldModule
 import dev.petuska.kmdc.form.field.MDCFormFieldScope
 import dev.petuska.kmdc.ripple.MDCRippleModule
-import org.jetbrains.compose.web.attributes.InputType
 import org.jetbrains.compose.web.attributes.builders.InputAttrsBuilder
 import org.jetbrains.compose.web.attributes.disabled
+import org.jetbrains.compose.web.dom.CheckboxInput
 import org.jetbrains.compose.web.dom.Div
-import org.jetbrains.compose.web.dom.Input
 import org.jetbrains.compose.web.dom.Label
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.Element
@@ -104,11 +103,8 @@ private fun MDCCheckboxBody(
     DomSideEffect(options.indeterminate) {
       it.mdc<MDCCheckboxModule.MDCCheckbox> { indeterminate = options.indeterminate }
     }
-    // WORKAROUND https://github.com/JetBrains/compose-jb/issues/1528
-    //     We cannot use the controlled CheckboxInput directly, but the workaround is functionally equivalent.
-    Input(type = InputType.Checkbox, attrs = {
-      classes("mdc-checkbox__native-control")  // This must precede `checked()`
-      checked(checked)  // This must follow `classes(...)`
+    CheckboxInput(checked, attrs = {
+      classes("mdc-checkbox__native-control")
       id(checkboxId)
       if (options.disabled) disabled()
       if (options.indeterminate) attr("data-indeterminate", "true")
