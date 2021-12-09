@@ -1,40 +1,18 @@
-import org.jetbrains.kotlin.gradle.targets.js.webpack.KotlinWebpackConfig
-
 plugins {
-  kotlin("multiplatform") version "1.5.31"
-  id("org.jetbrains.compose") version "1.0.0-rc1"
-}
-
-repositories {
-  mavenCentral()
-  google()
-  maven("https://maven.pkg.jetbrains.space/public/p/compose/dev")
+  id("plugin.application-js")
+  id("org.jetbrains.compose") version "1.0.0"
 }
 
 description = "Local consumer sandbox"
 
 kotlin {
-  js {
-    binaries.executable()
-    useCommonJs()
-    browser {
-      commonWebpackConfig {
-        cssSupport.enabled = true
-        sourceMaps = false
-        devServer = devServer?.copy(
-          open = false,
-          port = 3000,
-        )
-      }
-    }
-  }
   sourceSets {
-    named("commonTest") {
+    commonTest {
       dependencies {
         implementation("dev.petuska:test")
       }
     }
-    named("jsMain") {
+    jsMain {
       dependencies {
         implementation("dev.petuska:kmdc")
       }
